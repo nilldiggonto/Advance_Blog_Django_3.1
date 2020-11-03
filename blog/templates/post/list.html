@@ -3,10 +3,30 @@
 
 {% block content %}
 
- {% for post in posts %}
-    <h2><a href="{{post.get_absolute_url }}"> {{post.title}}</a></h2>
-    <br>
- {% endfor %}
+   <div class="jumbotron text-center bg-danger text-light">
+      <h4>All Post</h4>
+   </div>
+
+   <div class="container">
+
+      {% for post in posts %}
+      <div class="card mb-4">
+         <div class="card-header text-center">
+            <h4>{{post.title}}</h4>
+            <span>Posted by : {{post.author}}</span>
+         </div>
+         <div class="card-body">
+            <p>{{post.body}}</p>
+         </div>
+         <div class="card-footer text-center">
+            <a href="{{post.get_absolute_url}}" class="btn btn-sm btn-outline-danger">More Info</a>
+         </div>
+      </div>
+      {% endfor %}
+   </div>
+
+ 
+
 
 
 {% endblock %}

@@ -3,7 +3,7 @@ from .models import Post
 # Create your views here.
 def post_list(request):
     posts = Post.published.all()
-    template_name = 'blog/post/list.html'
+    template_name = 'post/list.html'
     context = {
         'posts':posts
     }
@@ -14,7 +14,7 @@ def post_list(request):
 def post_detail(request,year,month,day,post):
     post = get_object_or_404(Post, slug = post, status='published',
                                 publish__year= year, publish__month= month, publish__day= day)
-    template_name = 'blog/post/detail.html'
+    template_name = 'post/detail.html'
     context = {
         'post':post
     }

@@ -2,5 +2,24 @@
 
 
 {% block content %}
-    {{post.title}}
+<div class="jumbotron text-center bg-danger text-light">
+    <h4>Single Post</h4>
+ </div>
+
+ <div class="container">
+
+    
+    <div class="card mb-4">
+       <div class="card-header text-center">
+          <h4>{{post.title}}</h4>
+          <span>Posted by : {{post.author}} on {{post.publish}}</span>
+       </div>
+       <div class="card-body">
+          <p>{{post.body}}</p>
+       </div>
+      
+    </div>
+   
+ </div>
+
 {% endblock %}
