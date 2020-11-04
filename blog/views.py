@@ -65,7 +65,7 @@ def post_list(request):
 def post_detail(request,year,month,day,post):
     post = get_object_or_404(Post, slug = post, status='published',
                                 publish__year= year, publish__month= month, publish__day= day)
-
+    # comment_form = CommentForm()
     ####comment
     comments = post.comments.filter(active=True)
     new_comment = None
@@ -83,7 +83,9 @@ def post_detail(request,year,month,day,post):
     context = {
         'post':post,
         'new_comment':new_comment,
-        'commet_form': comment_form,
+        
+        'comments': comments,
+        'comment_form': comment_form
     }
     return render(request,template_name,context)
 #############################################################
