@@ -1,8 +1,8 @@
 from django.shortcuts import render,get_object_or_404
-from .models import Post
+from .models import Post, Comment
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from django.views.generic import ListView,DeleteView
-from .forms import MailPostForm
+from .forms import MailPostForm, CommentForm
 from django.core.mail import send_mail
 # Create your views here.
 
@@ -65,9 +65,25 @@ def post_list(request):
 def post_detail(request,year,month,day,post):
     post = get_object_or_404(Post, slug = post, status='published',
                                 publish__year= year, publish__month= month, publish__day= day)
+
+    ####comment
+    comments = post.comments.filter(active=True)
+    new_comment = None
+
+    if request.method == 'POST':
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.post = post
+            new_comment.save()
+    else:
+        comment_form = CommentForm()
+
     template_name = 'post/detail.html'
     context = {
-        'post':post
+        'post':post,
+        'new_comment':new_comment,
+        'commet_form': comment_form,
     }
     return render(request,template_name,context)
 #############################################################
