@@ -4,6 +4,7 @@ from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from django.views.generic import ListView,DeleteView
 from .forms import MailPostForm, CommentForm
 from django.core.mail import send_mail
+from taggit.models import Tag
 # Create your views here.
 
 ################################## EMAIL FORM ######################################
@@ -34,9 +35,17 @@ def post_share(request,post_id):
 
 
 ################################## Function Based ###################################
-def post_list(request):
+def post_list(request,tag_slug=None):
     
     object_list = Post.published.all()
+    #tag
+    tag = None
+    if tag_slug:
+        tag         = get_object_or_404(Tag,slug=tag_slug)
+        object_list = object_list.filter(tags__in =[tag])
+
+
+    ##
     template_name = 'post/list.html'
     paginator = Paginator(object_list,2)
     page = request.GET.get('page')
@@ -49,8 +58,9 @@ def post_list(request):
 
 
     context = {
-        'page':page,
-        'posts':posts
+        'page_obj':page,
+        'posts':posts,
+        'tag':tag,
     }
 
 
