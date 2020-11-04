@@ -2,7 +2,34 @@ from django.shortcuts import render,get_object_or_404
 from .models import Post
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from django.views.generic import ListView,DeleteView
+from .forms import MailPostForm
 # Create your views here.
+
+################################## EMAIL FORM ######################################
+def post_share(request,post_id):
+    post = get_object_or_404(Post, id =post_id, status= 'published')
+
+    if request.method == 'POST':
+        form = MailPostForm(request.POST)
+
+        if form.is_valid():
+            cd = form.cleaned_data
+            post_url = request.build_absolute_uri(post.get_absolute_url())
+            subject = f"{cd['name']} recommends you to read {post.title}"
+            message = f"Read {post.title} at {post_url}\n\n" \
+            f"{cd['name']}\'s comments: {cd['comments']}"
+            send_mail(subject, message, 'admin@myblog.com',[cd['to']])
+            sent = True
+    else:
+        form = MailPostForm()
+    template_name = 'post/share.html'
+    context = {
+        'post':post,
+        'form':form,
+        'sent':sent,
+    }
+    return render(request,template_name,context)
+
 
 ################################## Function Based ###################################
 def post_list(request):
