@@ -17,6 +17,10 @@
        <div class="card-body">
           <p>{{post.body}}</p>
        </div>
+
+       <div class="card-footer">
+          <a href="{% url 'blog:post_share' post.id %}" class="btn btn-sm btn-outline-warning">Share Post</a>
+       </div>
       
     </div>
    
