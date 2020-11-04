@@ -15,15 +15,15 @@
 
     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="justify-content: center !important;">
         <div class="btn-group " role="group" aria-label="Second group">
-        {% if page.has_previous %}
-        <a class="btn btn-outline-danger" href="?page={{ page.previous_page_number }}">Previous</a>
+        {% if page_obj.has_previous %}
+        <a class="btn btn-outline-danger" href="?page={{ page_obj.previous_page_number }}">Previous</a>
         {% endif %}
     
         
-          <button type="button" class="btn btn-secondary">Page {{ page.number }} of {{ page.paginator.num_pages }}.</button>
+          <button type="button" class="btn btn-secondary">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</button>
          
-          {% if page.has_next %}
-          <a class= "btn btn-outline-danger" href="?page={{ page.next_page_number }}">Next</a>
+          {% if page_obj.has_next %}
+          <a class= "btn btn-outline-danger" href="?page={{ page_obj.next_page_number }}">Next</a>
           {% endif %}
         </div>
     </div>

@@ -41,3 +41,10 @@ def post_detail(request,year,month,day,post):
         'post':post
     }
     return render(request,template_name,context)
+#############################################################
+# CLASS BASED VIEW
+class PostListView(ListView):
+    queryset = Post.published.all()
+    context_object_name = 'posts'
+    paginate_by = 2
+    template_name = 'post/list.html'
