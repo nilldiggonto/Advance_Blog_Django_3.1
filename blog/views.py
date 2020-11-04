@@ -3,11 +3,13 @@ from .models import Post
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from django.views.generic import ListView,DeleteView
 from .forms import MailPostForm
+from django.core.mail import send_mail
 # Create your views here.
 
 ################################## EMAIL FORM ######################################
 def post_share(request,post_id):
     post = get_object_or_404(Post, id =post_id, status= 'published')
+    sent = False
 
     if request.method == 'POST':
         form = MailPostForm(request.POST)
@@ -18,7 +20,7 @@ def post_share(request,post_id):
             subject = f"{cd['name']} recommends you to read {post.title}"
             message = f"Read {post.title} at {post_url}\n\n" \
             f"{cd['name']}\'s comments: {cd['comments']}"
-            send_mail(subject, message, 'admin@myblog.com',[cd['to']])
+            send_mail(subject, message, 'admin@gmail.com',[cd['to']])
             sent = True
     else:
         form = MailPostForm()
