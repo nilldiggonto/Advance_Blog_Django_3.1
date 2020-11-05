@@ -1,6 +1,8 @@
+
 {% extends 'base.html'%}
 
 
+{% load blog_tags %}
 {% block content %}
 <div class="jumbotron text-center bg-danger text-light">
     <h4>Single Post</h4>
@@ -15,7 +17,7 @@
             <span>Posted by : {{post.author}} on {{post.publish}}</span>
          </div>
          <div class="card-body">
-            <p>{{post.body}}</p>
+            <p>{{post.body|markdown}}</p>
          </div>
   
          <div class="card-footer">
