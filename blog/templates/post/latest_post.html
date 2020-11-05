@@ -1,0 +1,7 @@
+
+
+    {% for post in latest_posts %}
+  
+        <a class="btn-sm mb-2 btn btn-outline-danger" href="{{post.get_absolute_url}}">{{post.title}}</a>
+    
+    {% endfor %}

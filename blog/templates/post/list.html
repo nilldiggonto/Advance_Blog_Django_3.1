@@ -22,10 +22,11 @@
          <div class="card-body">
             <p>{{post.body}}</p>
             <hr>
+            <span >Tags:</span>
             {% for tag in post.tags.all %}
-            <p class="tags"> 
+            <span class="tags"> 
                <a href="{% url 'blog:post_list_by_tag' tag.slug %}">{{tag.name}}</a>
-            </p>
+            </span>
             {% if not forloop.last %} , {%endif %}
             {% endfor %}
          </div>
