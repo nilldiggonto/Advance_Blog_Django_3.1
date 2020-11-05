@@ -14,6 +14,9 @@
         <div class="card">
             <div class="card-header text-center bg-warning text-white">
                 <h4>I have Written {% total_posts %} blogs</h4>
+                <p>
+                    <a href="{% url 'blog:post_feed' %}" class="btn btn-danger">Subscribe for latest Posts</a>
+                </p>
             </div>
         
             <div class="row">
